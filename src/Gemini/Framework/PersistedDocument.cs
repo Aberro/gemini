@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Gemini.Framework
@@ -25,10 +26,10 @@ namespace Gemini.Framework
             }
         }
 
-        public override void CanClose(System.Action<bool> callback)
+        public override Task<bool> CanCloseAsync(CancellationToken cancellationToken)
         {
             // TODO: Show save prompt.
-            callback(!IsDirty);
+            return Task.FromResult(!IsDirty);
         }
 
         private void UpdateDisplayName()

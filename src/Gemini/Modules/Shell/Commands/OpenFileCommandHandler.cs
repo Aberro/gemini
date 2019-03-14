@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
@@ -35,7 +36,7 @@ namespace Gemini.Modules.Shell.Commands
                 .Select(x => x.Name + "|*" + x.FileExtension));
 
             if (dialog.ShowDialog() == true)
-                _shell.OpenDocument(await GetEditor(dialog.FileName));
+                await _shell.OpenDocumentAsync(await GetEditor(dialog.FileName), CancellationToken.None);
         }
 
         internal static Task<IDocument> GetEditor(string path)

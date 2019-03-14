@@ -22,7 +22,7 @@ namespace Gemini.Framework.Results
             _windowLocator = () => window;
         }
 
-        public override void Execute(CoroutineExecutionContext context)
+        public override async void Execute(CoroutineExecutionContext context)
         {
             var window = _windowLocator();
 
@@ -43,7 +43,7 @@ namespace Gemini.Framework.Results
                 OnCompleted(null, false);
             };
 
-            WindowManager.ShowWindow(window);
+            await WindowManager.ShowWindowAsync(window);
         }
     }
 }

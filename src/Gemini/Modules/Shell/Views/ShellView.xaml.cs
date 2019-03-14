@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Gemini.Framework;
@@ -15,7 +17,7 @@ namespace Gemini.Modules.Shell.Views
 			InitializeComponent();
 		}
 
-	    public void LoadLayout(Stream stream, Action<ITool> addToolCallback, Action<IDocument> addDocumentCallback,
+	    public void LoadLayout(Stream stream, Action<ITool> addToolCallback, Func<IDocument, CancellationToken, Task> addDocumentCallback,
                                Dictionary<string, ILayoutItem> itemsState)
 	    { 
             LayoutUtility.LoadLayout(Manager, stream, addDocumentCallback, addToolCallback, itemsState);

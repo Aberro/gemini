@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.ComponentModel.Composition;
+using System.Threading;
 using Caliburn.Micro;
 using Gemini.Framework.Services;
 using Gemini.Modules.Shell.Commands;
@@ -32,7 +33,7 @@ namespace Gemini.Framework.Results
 			_editorType = editorType;
 		}
 
-		public override void Execute(CoroutineExecutionContext context)
+		public override async void Execute(CoroutineExecutionContext context)
 		{
 			var editor = _editor ??
 				(string.IsNullOrEmpty(_path)
@@ -60,7 +61,7 @@ namespace Gemini.Framework.Results
 					_onShutDown(editor);
 			};
 
-			_shell.OpenDocument(editor);
+			await _shell.OpenDocumentAsync(editor, CancellationToken.None);
 
 			OnCompleted(null, false);
 		}

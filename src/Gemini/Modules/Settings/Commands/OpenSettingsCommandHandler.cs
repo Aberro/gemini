@@ -20,8 +20,7 @@ namespace Gemini.Modules.Settings.Commands
 
         public override Task Run(Command command)
         {
-            _windowManager.ShowDialog(IoC.Get<SettingsViewModel>());
-            return TaskUtility.Completed;
+            return _windowManager.ShowDialogAsync(IoC.Get<SettingsViewModel>());
         }
     }
 }

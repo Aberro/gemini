@@ -21,7 +21,7 @@ namespace Gemini.Framework.Results
         [Import]
         public IWindowManager WindowManager { get; set; }
 
-        public override void Execute(CoroutineExecutionContext context)
+        public override async void Execute(CoroutineExecutionContext context)
         {
             TWindow window = _windowLocator();
 
@@ -31,7 +31,7 @@ namespace Gemini.Framework.Results
             if (_onConfigure != null)
                 _onConfigure(window);
 
-            bool result = WindowManager.ShowDialog(window).GetValueOrDefault();
+            bool result = (await WindowManager.ShowDialogAsync(window)).GetValueOrDefault();
 
             if (_onShutDown != null)
                 _onShutDown(window);

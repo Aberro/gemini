@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition;
+using System.Threading;
 using Caliburn.Micro;
 using Gemini.Demo.Modules.SampleBrowser.ViewModels;
 using Gemini.Framework;
@@ -10,7 +11,7 @@ namespace Gemini.Demo.Modules.SampleBrowser
     {
         public override void PostInitialize()
         {
-            Shell.OpenDocument(IoC.Get<SampleBrowserViewModel>());
+            Shell.OpenDocumentAsync(IoC.Get<SampleBrowserViewModel>(), CancellationToken.None);
         }
     }
 }

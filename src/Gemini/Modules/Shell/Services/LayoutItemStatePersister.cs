@@ -193,7 +193,7 @@ namespace Gemini.Modules.Shell.Services
                         }
                     }
 
-                    shellView.LoadLayout(reader.BaseStream, shell.ShowTool, shell.OpenDocument, layoutItems);
+                    shellView.LoadLayout(reader.BaseStream, shell.ShowTool, shell.OpenDocumentAsync, layoutItems);
                 }
             }
             catch

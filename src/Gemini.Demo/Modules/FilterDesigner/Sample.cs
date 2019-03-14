@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition;
+using System.Threading;
 using Caliburn.Micro;
 using Gemini.Demo.Modules.FilterDesigner.ViewModels;
 using Gemini.Demo.Modules.SampleBrowser;
@@ -18,7 +19,7 @@ namespace Gemini.Demo.Modules.FilterDesigner
 
         public void Activate(IShell shell)
         {
-            shell.OpenDocument(IoC.Get<GraphViewModel>());
+            shell.OpenDocumentAsync(IoC.Get<GraphViewModel>(), CancellationToken.None);
             shell.ShowTool<IInspectorTool>();
             shell.ShowTool<IToolbox>();
         }

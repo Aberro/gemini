@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Threading;
 using Caliburn.Micro;
 using Gemini.Demo.Modules.Home.Commands;
 using Gemini.Demo.Modules.Home.ViewModels;
@@ -36,7 +37,7 @@ namespace Gemini.Demo.Modules.Home
         public override void PostInitialize()
         {
             IoC.Get<IPropertyGrid>().SelectedObject = IoC.Get<HomeViewModel>();
-            Shell.OpenDocument(IoC.Get<HomeViewModel>());
+            Shell.OpenDocumentAsync(IoC.Get<HomeViewModel>(), CancellationToken.None);
         }
 	}
 }

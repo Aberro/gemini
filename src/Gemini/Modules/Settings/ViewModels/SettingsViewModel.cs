@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Caliburn.Micro;
 using Gemini.Framework;
@@ -17,8 +19,8 @@ namespace Gemini.Modules.Settings.ViewModels
 
         public SettingsViewModel()
         {
-            CancelCommand = new RelayCommand(o => TryClose(false));
-            OkCommand = new RelayCommand(SaveChanges);
+            CancelCommand = new RelayCommand(async o => await TryCloseAsync(false));
+            OkCommand = new RelayCommand(async o => await SaveChangesAsync(o));
 
             DisplayName = Resources.SettingsDisplayName;
         }
@@ -38,9 +40,9 @@ namespace Gemini.Modules.Settings.ViewModels
         public ICommand CancelCommand { get; private set; }
         public ICommand OkCommand { get; private set; }
 
-        protected override void OnInitialize()
+        protected override async Task OnInitializeAsync(CancellationToken cancellationToken)
         {
-            base.OnInitialize();
+            await base.OnInitializeAsync(cancellationToken);
 
             var pages = new List<SettingsPageViewModel>();
             _settingsEditors = IoC.GetAll<ISettingsEditor>();
@@ -106,14 +108,14 @@ namespace Gemini.Modules.Settings.ViewModels
             return pages;
         }
 
-        private void SaveChanges(object obj)
+        private async Task SaveChangesAsync(object obj)
         {
             foreach (ISettingsEditor settingsEditor in _settingsEditors)
             {
                 settingsEditor.ApplyChanges();
             }
 
-            TryClose(true);
+            await TryCloseAsync(true);
         }
     }
 }

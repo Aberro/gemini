@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition;
+using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Gemini.Demo.Modules.Home.ViewModels;
@@ -22,7 +23,7 @@ namespace Gemini.Demo.Modules.Home.Commands
 
         public override Task Run(Command command)
         {
-            _shell.OpenDocument((IDocument) IoC.GetInstance(typeof(HelixViewModel), null));
+            _shell.OpenDocumentAsync((IDocument) IoC.GetInstance(typeof(HelixViewModel), null), CancellationToken.None);
             return TaskUtility.Completed;
         }
     }

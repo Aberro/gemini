@@ -1,4 +1,5 @@
 using System.ComponentModel.Composition;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using Caliburn.Micro;
@@ -82,11 +83,11 @@ namespace Gemini.Modules.MainWindow.ViewModels
             get { return _shell; }
         }
 
-        void IPartImportsSatisfiedNotification.OnImportsSatisfied()
+        async void IPartImportsSatisfiedNotification.OnImportsSatisfied()
         {
             if (_icon == null)
                 _icon = _resourceManager.GetBitmap("Resources/Icons/Gemini-32.png");
-            ActivateItem(_shell);
+            await ActivateItemAsync(_shell, CancellationToken.None);
         }
 
         protected override void OnViewLoaded(object view)

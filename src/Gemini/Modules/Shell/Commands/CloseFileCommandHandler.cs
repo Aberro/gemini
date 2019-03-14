@@ -1,4 +1,5 @@
 using System.ComponentModel.Composition;
+using System.Threading;
 using System.Threading.Tasks;
 using Gemini.Framework.Commands;
 using Gemini.Framework.Services;
@@ -25,8 +26,7 @@ namespace Gemini.Modules.Shell.Commands
 
         public override Task Run(Command command)
         {
-            _shell.CloseDocument(_shell.ActiveItem);
-            return TaskUtility.Completed; 
+            return _shell.CloseDocumentAsync(_shell.ActiveItem, CancellationToken.None);
         }
     }
 }

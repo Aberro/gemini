@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using Gemini.Modules.MainMenu;
 using Gemini.Modules.StatusBar;
@@ -29,8 +31,8 @@ namespace Gemini.Framework.Services
         void ShowTool<TTool>() where TTool : ITool;
 		void ShowTool(ITool model);
 
-		void OpenDocument(IDocument model);
-		void CloseDocument(IDocument document);
+		Task OpenDocumentAsync(IDocument model, CancellationToken cancellationToken);
+		Task CloseDocumentAsync(IDocument document, CancellationToken cancellationToken);
 
 		void Close();
 	}
