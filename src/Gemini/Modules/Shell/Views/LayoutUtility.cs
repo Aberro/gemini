@@ -1,6 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Gemini.Framework;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -16,18 +18,18 @@ namespace Gemini.Modules.Shell.Views
             layoutSerializer.Serialize(stream);
         }
 
-        public static void LoadLayout(DockingManager manager, Stream stream, Action<IDocument> addDocumentCallback,
+        public static void LoadLayout(DockingManager manager, Stream stream, Func<IDocument, CancellationToken, Task> addDocumentCallback,
                                       Action<ITool> addToolCallback, Dictionary<string, ILayoutItem> items)
         {
             var layoutSerializer = new XmlLayoutSerializer(manager);
 
-            layoutSerializer.LayoutSerializationCallback += (s, e) =>
+            layoutSerializer.LayoutSerializationCallback += async (s, e) =>
                 {
                     ILayoutItem item;
                     if (items.TryGetValue(e.Model.ContentId, out item))
                     {
                         e.Content = item;
-
+ 
                         var tool = item as ITool;
                         var anchorable = e.Model as LayoutAnchorable;
 
@@ -40,7 +42,7 @@ namespace Gemini.Modules.Shell.Views
                             tool.IsVisible = anchorable.IsVisible;
 
                             if (anchorable.IsActive)
-                                tool.Activate();
+                                await tool.ActivateAsync(CancellationToken.None);
 
                             tool.IsSelected = e.Model.IsSelected;
 
@@ -49,7 +51,7 @@ namespace Gemini.Modules.Shell.Views
 
                         if (document != null && layoutDocument != null)
                         {
-                            addDocumentCallback(document);
+                            await addDocumentCallback(document, CancellationToken.None);
 
                             // Nasty hack to get around issue that occurs if documents are loaded from state,
                             // and more documents are opened programmatically.

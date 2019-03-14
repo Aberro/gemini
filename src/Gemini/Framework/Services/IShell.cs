@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Caliburn.Micro;
 using Gemini.Modules.MainMenu;
 using Gemini.Modules.StatusBar;
