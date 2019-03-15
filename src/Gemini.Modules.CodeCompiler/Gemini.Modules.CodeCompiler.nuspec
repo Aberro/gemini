@@ -19,5 +19,6 @@
 	</metadata>
 	<files>
 		<file src="..\..\LICENCE.txt" target="." />
+        <file src="bin\$configuration$\*.pdb" target="lib\net45" />
 	</files>
 </package>
