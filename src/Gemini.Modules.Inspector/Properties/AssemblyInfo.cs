@@ -1,3 +1,4 @@
+
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -12,7 +13,7 @@ using System.Windows.Markup;
 [assembly: AssemblyConfiguration("Retail")]
 [assembly: AssemblyCompany("Tim Jones")]
 [assembly: AssemblyProduct("Gemini.Modules.Inspector")]
-[assembly: AssemblyCopyright("Copyright Â©2013 Tim Jones")]
+[assembly: AssemblyCopyright("Copyright ©2013 Tim Jones")]
 [assembly: AssemblyTrademark("timjones.tw")]
 [assembly: AssemblyCulture("")]
 
@@ -24,8 +25,10 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("5185b64e-2aa5-4fab-b1d3-e48e111baa92")]
 
-[assembly: AssemblyVersion("1.0.0.*")]
-[assembly: AssemblyFileVersion("1.0.0")]
-
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: XmlnsDefinition("http://schemas.timjones.tw/gemini", "Gemini.Modules.Inspector.Controls")]
+
+// Version information
+[assembly: AssemblyVersion("1.0.516.0")]
+[assembly: AssemblyFileVersion("1.0.516.0")]
+

@@ -1,0 +1,60 @@
+<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Windows.Forms" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+
+<#
+	bool incBuild = false;
+
+	try { incBuild = Convert.ToBoolean(this.Host.ResolveParameterValue("","","build")); } catch( Exception ) { }
+	string currentDirectory = Path.GetDirectoryName(Host.TemplateFile);
+	string assemblyInfo = File.ReadAllText(Path.Combine(currentDirectory,"AssemblyInfo.cs"));
+	Regex pattern = new Regex("AssemblyVersion\\(\"\\d+\\.\\d+\\.(?<revision>\\d+)\\.(?<build>\\d+)\"\\)");
+	MatchCollection matches = pattern.Matches(assemblyInfo);
+	var procInfo = new ProcessStartInfo("git", "rev-list --count HEAD") {WorkingDirectory = Host.ResolvePath("."), CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false};
+	var proc = Process.Start(procInfo);
+	proc.WaitForExit();
+	var line = proc.StandardOutput.ReadLine();
+
+	revision = Convert.ToInt32(line);
+    build = 0;
+	var prevRevision = Convert.ToInt32(matches.Count > 0 ? (matches[0].Groups["revision"].Value) : "0");
+	if (revision == prevRevision)
+		build = Convert.ToInt32(matches.Count > 0 ? (matches[0].Groups["build"].Value) : "0") + (incBuild ? 1 : 0);
+	else
+		build = 0;
+#>
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly: AssemblyTitle("Gemini.Modules.PropertyGrid")]
+[assembly: AssemblyDescription("PropertyGrid module for Gemini, utilising the PropertyGrid control from the Extended WPF Toolkit.")]
+[assembly: AssemblyConfiguration("Retail")]
+[assembly: AssemblyCompany("Tim Jones")]
+[assembly: AssemblyProduct("Gemini.Modules.PropertyGrid")]
+[assembly: AssemblyCopyright("Copyright ©2013 Tim Jones")]
+[assembly: AssemblyTrademark("timjones.tw")]
+[assembly: AssemblyCulture("")]
+
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need to access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
+[assembly: ComVisible(false)]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("0cbd2f28-0b0d-4f1b-852f-a0cf412ec891")]
+
+// Version information
+[assembly: AssemblyVersion("1.0.<#= this.revision #>.<#= this.build #>")]
+[assembly: AssemblyFileVersion("1.0.<#= this.revision #>.<#= this.build #>")]
+
+<#+
+	int revision = 0;
+	int build = 0;
+#>

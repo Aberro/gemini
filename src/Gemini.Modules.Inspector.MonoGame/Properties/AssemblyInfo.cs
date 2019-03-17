@@ -1,3 +1,4 @@
+
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -10,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Retail")]
 [assembly: AssemblyCompany("Tim Jones")]
 [assembly: AssemblyProduct("Gemini.Modules.Inspector.MonoGame")]
-[assembly: AssemblyCopyright("Copyright Â©2014 Tim Jones")]
+[assembly: AssemblyCopyright("Copyright ©2014 Tim Jones")]
 [assembly: AssemblyTrademark("timjones.tw")]
 [assembly: AssemblyCulture("")]
 
@@ -22,5 +23,7 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("c1026598-114a-48b7-a7fc-2cbca4a1059a")]
 
-[assembly: AssemblyVersion("1.0.0.*")]
-[assembly: AssemblyFileVersion("1.0.0")]
+// Version information
+[assembly: AssemblyVersion("1.0.516.0")]
+[assembly: AssemblyFileVersion("1.0.516.0")]
+

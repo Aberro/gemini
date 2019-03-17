@@ -1,3 +1,4 @@
+
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
@@ -10,7 +11,7 @@ using System.Windows.Markup;
 [assembly: AssemblyConfiguration("Retail")]
 [assembly: AssemblyCompany("Tim Jones")]
 [assembly: AssemblyProduct("Gemini.Modules.MonoGame")]
-[assembly: AssemblyCopyright("Copyright Â©2014 Tim Jones")]
+[assembly: AssemblyCopyright("Copyright ©2014 Tim Jones")]
 [assembly: AssemblyTrademark("timjones.tw")]
 [assembly: AssemblyCulture("")]
 
@@ -22,7 +23,10 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("03826c42-bf42-48a6-a3ee-09bac7a6cf9e")]
 
-[assembly: AssemblyVersion("1.0.0.*")]
-[assembly: AssemblyFileVersion("1.0.0")]
-
 [assembly: XmlnsDefinition("http://schemas.timjones.tw/gemini", "Gemini.Modules.MonoGame.Controls")]
+
+
+// Version information
+[assembly: AssemblyVersion("1.0.516.0")]
+[assembly: AssemblyFileVersion("1.0.516.0")]
+
