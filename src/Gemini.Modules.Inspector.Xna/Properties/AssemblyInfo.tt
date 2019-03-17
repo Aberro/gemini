@@ -1,4 +1,31 @@
+<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System.Windows.Forms" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
 
+<#
+	bool incBuild = false;
+
+	try { incBuild = Convert.ToBoolean(this.Host.ResolveParameterValue("","","build")); } catch( Exception ) { }
+	string currentDirectory = Path.GetDirectoryName(Host.TemplateFile);
+	string assemblyInfo = File.ReadAllText(Path.Combine(currentDirectory,"AssemblyInfo.cs"));
+	Regex pattern = new Regex("AssemblyVersion\\(\"\\d+\\.\\d+\\.(?<revision>\\d+)\\.(?<build>\\d+)\"\\)");
+	MatchCollection matches = pattern.Matches(assemblyInfo);
+	var procInfo = new ProcessStartInfo("git", "rev-list --count HEAD") {WorkingDirectory = Host.ResolvePath("."), CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false};
+	var proc = Process.Start(procInfo);
+	proc.WaitForExit();
+	var line = proc.StandardOutput.ReadLine();
+
+	revision = Convert.ToInt32(line);
+    build = 0;
+	var prevRevision = Convert.ToInt32(matches.Count > 0 ? (matches[0].Groups["revision"].Value) : "0");
+	if (revision == prevRevision)
+		build = Convert.ToInt32(matches.Count > 0 ? (matches[0].Groups["build"].Value) : "0") + (incBuild ? 1 : 0);
+	else
+		build = 0;
+#>
 using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -13,7 +40,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("Retail")]
 [assembly: AssemblyCompany("Tim Jones")]
 [assembly: AssemblyProduct("Gemini.Modules.Inspector.Xna")]
-[assembly: AssemblyCopyright("Copyright ©2013 Tim Jones")]
+[assembly: AssemblyCopyright("Copyright Â©2013 Tim Jones")]
 [assembly: AssemblyTrademark("timjones.tw")]
 [assembly: AssemblyCulture("")]
 
@@ -42,6 +69,10 @@ using System.Windows;
 )]
 
 // Version information
-[assembly: AssemblyVersion("1.0.516.0")]
-[assembly: AssemblyFileVersion("1.0.516.0")]
+[assembly: AssemblyVersion("1.0.<#= this.revision #>.<#= this.build #>")]
+[assembly: AssemblyFileVersion("1.0.<#= this.revision #>.<#= this.build #>")]
 
+<#+
+	int revision = 0;
+	int build = 0;
+#>

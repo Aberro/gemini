@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -318,8 +318,12 @@
     <Compile Include="Modules\MainWindow\Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\Shell\ViewModels\ShellViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <DependentUpon>AssemblyInfo.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Properties\Resources.de.Designer.cs">
       <DependentUpon>Resources.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -515,20 +519,29 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\FullScreen.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Properties\AssemblyInfo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-      <PostBuildEventDependsOn>
+    <PostBuildEventDependsOn>
           $(PostBuildEventDependsOn);
           PostBuildMacros;
       </PostBuildEventDependsOn>
   </PropertyGroup>
   <Target Name="PostBuildMacros">
-      <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
-          <Output TaskParameter="Assemblies" ItemName="Targets" />
-      </GetAssemblyIdentity>
-      <ItemGroup>
-          <VersionNumber Include="@(Targets->'%(Version)')"/>
-      </ItemGroup>
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="@(Targets->'%(Version)')" />
+    </ItemGroup>
   </Target>
   <PropertyGroup>
     <PostBuildEvent>$(ProjectDir)..\.nuget\nuget.exe pack "$(ProjectPath)" -OutputDirectory "$(SolutionDir)..\..\packages" -Properties Configuration=$(Configuration)</PostBuildEvent>

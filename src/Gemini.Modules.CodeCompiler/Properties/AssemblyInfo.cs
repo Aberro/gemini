@@ -1,3 +1,4 @@
+
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -10,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Retail")]
 [assembly: AssemblyCompany("Tim Jones")]
 [assembly: AssemblyProduct("Gemini.Modules.CodeCompiler")]
-[assembly: AssemblyCopyright("Copyright Â©2013 Tim Jones")]
+[assembly: AssemblyCopyright("Copyright ©2013 Tim Jones")]
 [assembly: AssemblyTrademark("timjones.tw")]
 [assembly: AssemblyCulture("")]
 
@@ -22,5 +23,7 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0cf46e20-c60b-4f46-be00-2d272861727c")]
 
-[assembly: AssemblyVersion("1.0.0.*")]
-[assembly: AssemblyFileVersion("1.0.0")]
+// Version information
+[assembly: AssemblyVersion("1.0.516.0")]
+[assembly: AssemblyFileVersion("1.0.516.0")]
+
