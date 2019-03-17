@@ -97,6 +97,8 @@
   </Target>
   <PropertyGroup>
     <TransformOnBuild>true</TransformOnBuild>
+    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+    <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
   </PropertyGroup>
   <Import Project="..\packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets" Condition="Exists('..\packages\SharpDX.Toolkit.2.6.3\build\SharpDX.Toolkit.targets')" />
   <PropertyGroup>

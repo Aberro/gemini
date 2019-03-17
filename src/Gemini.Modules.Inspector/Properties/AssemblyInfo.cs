@@ -29,6 +29,6 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.timjones.tw/gemini", "Gemini.Modules.Inspector.Controls")]
 
 // Version information
-[assembly: AssemblyVersion("1.0.520.0")]
-[assembly: AssemblyFileVersion("1.0.520.0")]
+[assembly: AssemblyVersion("1.0.523.0")]
+[assembly: AssemblyFileVersion("1.0.523.0")]
 
