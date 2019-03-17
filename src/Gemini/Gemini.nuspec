@@ -14,7 +14,7 @@
 	</metadata>
 	<files>
 		<file src="..\..\LICENCE.txt" target="." />
-        <file src="bin\$configuration$\Xceed.Wpf.AvalonDock.Themes.VS2013.dll" target="lib\net45\" />
-        <file src="bin\$configuration$\*.pdb" target="lib\net45" />
+        <file src="bin\$configuration$\Xceed.Wpf.AvalonDock.Themes.VS2013.dll" target="lib\net471\" />
+        <file src="bin\$configuration$\Gemini.pdb" target="lib\net471" />
 	</files>
 </package>

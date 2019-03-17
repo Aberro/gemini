@@ -18,6 +18,6 @@
 	</metadata>
 	<files>
 		<file src="..\..\LICENCE.txt" target="." />
-        <file src="bin\$configuration$\*.pdb" target="lib\net45" />
+        <file src="bin\$configuration$\Gemini.Modules.Inspector.MonoGame.pdb" target="lib\net471" />
 	</files>
 </package>
