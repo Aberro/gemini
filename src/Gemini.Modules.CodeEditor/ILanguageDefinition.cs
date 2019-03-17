@@ -13,10 +13,14 @@ namespace Gemini.Modules.CodeEditor
 
     public class ExcludeLanguageDefinition
     {
-        public ILanguageDefinition ExcludedLanguageDefinition { get; }
+        public IEnumerable<ILanguageDefinition> ExcludedLanguageDefinition { get; }
         public ExcludeLanguageDefinition(ILanguageDefinition defitionToExclude)
         {
-            ExcludedLanguageDefinition = defitionToExclude;
+            ExcludedLanguageDefinition = new[] { defitionToExclude };
+        }
+        public ExcludeLanguageDefinition(params ILanguageDefinition[] definitionsToExclude)
+        {
+            ExcludedLanguageDefinition = definitionsToExclude;
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Gemini.Modules.CodeEditor
             var languageDefinitions = new List<ILanguageDefinition>();
 
             // Add imported definitions
-            foreach (ILanguageDefinition importedLanguage in IoC.GetAll<ILanguageDefinition>().Except(IoC.GetAll<ExcludeLanguageDefinition>().Select(e => e.ExcludedLanguageDefinition)))
+            foreach (ILanguageDefinition importedLanguage in IoC.GetAll<ILanguageDefinition>().Except(IoC.GetAll<ExcludeLanguageDefinition>().SelectMany(e => e.ExcludedLanguageDefinition)))
             {
                 ILanguageDefinition defaultLanguage =
                     languageDefinitions.FirstOrDefault(
