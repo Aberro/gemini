@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace Gemini.Modules.CodeEditor
@@ -9,5 +9,14 @@ namespace Gemini.Modules.CodeEditor
         IEnumerable<string> FileExtensions { get; set; }
         IHighlightingDefinition SyntaxHighlighting { get; }
         string CustomSyntaxHighlightingFileName { get; set; }
+    }
+
+    public class ExcludeLanguageDefinition
+    {
+        public ILanguageDefinition ExcludedLanguageDefinition { get; }
+        public ExcludeLanguageDefinition(ILanguageDefinition defitionToExclude)
+        {
+            ExcludedLanguageDefinition = defitionToExclude;
+        }
     }
 }

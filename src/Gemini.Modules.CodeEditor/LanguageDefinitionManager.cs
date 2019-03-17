@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -9,12 +9,35 @@ using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace Gemini.Modules.CodeEditor
 {
+    public static class CodeEditorDefaultLanguageDefinitions
+    {
+        [Export] public static ILanguageDefinition CSharp = new DefaultLanguageDefinition("C#", new[] {".cs"});
+        [Export] public static ILanguageDefinition JavaScript = new DefaultLanguageDefinition("JavaScript", new[] {".js"});
+        [Export] public static ILanguageDefinition HTML = new DefaultLanguageDefinition("HTML", new[] {".htm", ".html"});
+        [Export] public static ILanguageDefinition ASP = new DefaultLanguageDefinition("ASP/XHTML",
+            new[] {".asp", ".aspx", ".asax", ".asmx", ".ascx", ".master"});
+        [Export] public static ILanguageDefinition Boo = new DefaultLanguageDefinition("Boo", new[] {".boo"});
+        [Export] public static ILanguageDefinition Coco = new DefaultLanguageDefinition("Coco", new[] {".atg"});
+        [Export] public static ILanguageDefinition CSS = new DefaultLanguageDefinition("CSS", new[] {".css"});
+        [Export] public static ILanguageDefinition CPP = new DefaultLanguageDefinition("C++", new[] {".c", ".h", ".cc", ".cpp", ".hpp"});
+        [Export] public static ILanguageDefinition Java = new DefaultLanguageDefinition("Java", new[] {".java"});
+        [Export] public static ILanguageDefinition Patch = new DefaultLanguageDefinition("Patch", new[] {".patch", ".diff"});
+        [Export] public static ILanguageDefinition PowerShell = new DefaultLanguageDefinition("PowerShell", new[] {".ps1", ".psm1", ".psd1"});
+        [Export] public static ILanguageDefinition PHP = new DefaultLanguageDefinition("PHP", new[] {".php"});
+        [Export] public static ILanguageDefinition TeX = new DefaultLanguageDefinition("TeX", new[] {".tex"});
+        [Export] public static ILanguageDefinition VBNET = new DefaultLanguageDefinition("VBNET", new[] {".vb"});
+        [Export] public static ILanguageDefinition XML = new DefaultLanguageDefinition("XML", (".xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;" +
+                                                                                      ".xshd;.wxs;.wxi;.wxl;.proj;.csproj;.vbproj;.ilproj;" +
+                                                                                      ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +
+                                                                                      ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';'));
+        [Export] public static ILanguageDefinition MarkDown = new DefaultLanguageDefinition("MarkDown", new[] {".md"});
+    }
     [Export(typeof (LanguageDefinitionManager))]
     public class LanguageDefinitionManager
     {
         private List<ILanguageDefinition> _languageDefinitions;
 
-        public IEnumerable<ILanguageDefinition> LanguageDefinitions
+        public List<ILanguageDefinition> LanguageDefinitions
         {
             get
             {
@@ -35,32 +58,10 @@ namespace Gemini.Modules.CodeEditor
         private List<ILanguageDefinition> Initialize()
         {
             // Create built in language definitions
-            var languageDefinitions = new List<ILanguageDefinition>
-                {
-                    new DefaultLanguageDefinition("C#", new[] {".cs"}),
-                    new DefaultLanguageDefinition("JavaScript", new[] {".js"}),
-                    new DefaultLanguageDefinition("HTML", new[] {".htm", ".html"}),
-                    new DefaultLanguageDefinition("ASP/XHTML",
-                                                  new[] {".asp", ".aspx", ".asax", ".asmx", ".ascx", ".master"}),
-                    new DefaultLanguageDefinition("Boo", new[] {".boo"}),
-                    new DefaultLanguageDefinition("Coco", new[] {".atg"}),
-                    new DefaultLanguageDefinition("CSS", new[] {".css"}),
-                    new DefaultLanguageDefinition("C++", new[] {".c", ".h", ".cc", ".cpp", ".hpp"}),
-                    new DefaultLanguageDefinition("Java", new[] {".java"}),
-                    new DefaultLanguageDefinition("Patch", new[] {".patch", ".diff"}),
-                    new DefaultLanguageDefinition("PowerShell", new[] {".ps1", ".psm1", ".psd1"}),
-                    new DefaultLanguageDefinition("PHP", new[] {".php"}),
-                    new DefaultLanguageDefinition("TeX", new[] {".tex"}),
-                    new DefaultLanguageDefinition("VBNET", new[] {".vb"}),
-                    new DefaultLanguageDefinition("XML", (".xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;" +
-                                                          ".xshd;.wxs;.wxi;.wxl;.proj;.csproj;.vbproj;.ilproj;" +
-                                                          ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +
-                                                          ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';')),
-                    new DefaultLanguageDefinition("MarkDown", new[] {".md"}),
-                };
+            var languageDefinitions = new List<ILanguageDefinition>();
 
             // Add imported definitions
-            foreach (ILanguageDefinition importedLanguage in IoC.GetAll<ILanguageDefinition>())
+            foreach (ILanguageDefinition importedLanguage in IoC.GetAll<ILanguageDefinition>().Except(IoC.GetAll<ExcludeLanguageDefinition>().Select(e => e.ExcludedLanguageDefinition)))
             {
                 ILanguageDefinition defaultLanguage =
                     languageDefinitions.FirstOrDefault(
