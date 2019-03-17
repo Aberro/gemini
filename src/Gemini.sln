@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28711.60
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemini.Demo", "Gemini.Demo\Gemini.Demo.csproj", "{250E5DC8-DEE7-428E-8FE6-EAFDD70977EE}"
 EndProject
@@ -249,5 +249,8 @@ Global
 		{9F269618-D57F-42A1-9C8E-71291BB10588} = {87C5CCCC-7448-4802-B35F-C0BEA3FF880D}
 		{C723324B-E0FA-4F77-A616-F2B96F4C4198} = {87C5CCCC-7448-4802-B35F-C0BEA3FF880D}
 		{8305C7DD-F954-4E3C-A9A7-AE95C4DE2CD0} = {87C5CCCC-7448-4802-B35F-C0BEA3FF880D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AEE67DB-900B-429C-85F6-A696D160F8AF}
 	EndGlobalSection
 EndGlobal
