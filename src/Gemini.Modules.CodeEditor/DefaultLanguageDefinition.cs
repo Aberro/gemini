@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -6,7 +6,7 @@ using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace Gemini.Modules.CodeEditor
 {
-    internal class DefaultLanguageDefinition : ILanguageDefinition
+    public class DefaultLanguageDefinition : ILanguageDefinition
     {
         private readonly string _name;
         private IHighlightingDefinition _highlightingDefinition;

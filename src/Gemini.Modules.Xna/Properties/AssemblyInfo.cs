@@ -27,6 +27,6 @@ using System.Windows.Markup;
 
 
 // Version information
-[assembly: AssemblyVersion("1.0.523.0")]
-[assembly: AssemblyFileVersion("1.0.523.0")]
+[assembly: AssemblyVersion("1.0.525.0")]
+[assembly: AssemblyFileVersion("1.0.525.0")]
 
